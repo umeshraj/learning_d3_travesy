@@ -1,0 +1,20 @@
+d3.select("body")
+  .append("svg")
+  .attr("width", 400)
+  .attr("height", 400)
+  .style("background", "lightgray")
+  .append("rect")
+  .attr("width", 300)
+  .attr("height", 300)
+  .attr("x", 50)
+  .attr("y", 50)
+  .style("fill", "red")
+  .style("stroke", "black")
+  .style("stroke-width", 1);
+
+d3.select("svg")
+  .append("circle")
+  .attr("cx", 100)
+  .attr("cy", 100)
+  .attr("r", 50)
+  .style("fill", "yellow");

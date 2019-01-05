@@ -1,0 +1,9 @@
+.svg-base {
+  background: #f4f4f4;
+}
+
+.rect-base {
+  fill: red;
+  stroke: black;
+  stroke-width: 1px;
+}
