@@ -20,6 +20,12 @@ const xScale = d3
 xScale.paddingInner(0.1);
 xScale.paddingOuter(0.1);
 
+// Adding a color scale
+const colors = d3
+  .scaleLinear()
+  .domain([0, myData.length])
+  .range(["#90ee90", "#30c230"]);
+
 // Plotting the chart
 const svg = d3
   .select("#chart")
@@ -34,7 +40,7 @@ svg
   .data(myData)
   .enter()
   .append("rect")
-  .style("fill", "lightgreen")
+  .style("fill", (d, i) => colors(i))
   .attr("width", xScale.bandwidth())
   .attr("height", d => yScale(d))
   .attr("x", (d, i) => xScale(i))
