@@ -45,7 +45,11 @@ svg
   .attr("x", (d, i) => xScale(i))
   .attr("y", d => svgHeight - yScale(d))
   .on("mouseover", d => {
+    tooltip.transition().style("opacity", 1);
     tooltip.html(d);
     tooltip.style("left", d3.event.pageX + "px");
     tooltip.style("top", d3.event.pageY + "px");
+  })
+  .on("mouseout", () => {
+    tooltip.transition().style("opacity", 0);
   });
