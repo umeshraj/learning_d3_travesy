@@ -41,9 +41,9 @@ svg
   .append("rect")
   .style("fill", "lightgreen")
   .attr("width", xScale.bandwidth())
-  .attr("height", d => yScale(d))
+  .attr("height", d => 0 * yScale(d))
   .attr("x", (d, i) => xScale(i))
-  .attr("y", d => svgHeight - yScale(d))
+  .attr("y", d => svgHeight)
   .on("mouseover", d => {
     tooltip.transition().style("opacity", 1);
     tooltip.html(d);
@@ -53,3 +53,13 @@ svg
   .on("mouseout", () => {
     tooltip.transition().style("opacity", 0);
   });
+
+// Adding animation to the bars
+svg
+  .selectAll("rect")
+  .transition()
+  .delay(500)
+  .duration(2000)
+  .attr("height", d => yScale(d))
+  .attr("y", d => svgHeight - yScale(d))
+  .ease(d3.easeElastic);
