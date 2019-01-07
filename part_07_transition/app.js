@@ -22,6 +22,17 @@ const xScale = d3
   .paddingInner(0.5)
   .paddingOuter(0.5);
 
+// tooltip
+const tooltip = d3
+  .select("body")
+  .append("div")
+  .style("position", "absolute")
+  .style("background", "#f4f4f4")
+  .style("padding", "5 15px")
+  .style("border", "1px #333 solid")
+  .style("border-radius", "5px")
+  .style("opacity", 1);
+
 // Add data
 svg
   .selectAll("rect")
@@ -32,4 +43,7 @@ svg
   .attr("width", xScale.bandwidth())
   .attr("height", d => yScale(d))
   .attr("x", (d, i) => xScale(i))
-  .attr("y", d => svgHeight - yScale(d));
+  .attr("y", d => svgHeight - yScale(d))
+  .on("mouseover", d => {
+    tooltip.html(d);
+  });
