@@ -1,12 +1,16 @@
 const myData = [10, 20, 30, 40, 50];
-const svgHeight = 400;
-const svgWidth = 400;
+// https://bl.ocks.org/mbostock/3019563
+const margin = { top: 20, right: 10, bottom: 20, left: 10 };
+const svgHeight = 400 - margin.top - margin.bottom;
+const svgWidth = 400 - margin.left - margin.right;
 
 const svg = d3.select("#chart").append("svg");
 svg
-  .attr("width", svgWidth)
-  .attr("height", svgHeight)
-  .style("background", "#f4f4f4");
+  .attr("width", svgWidth + margin.left + margin.right)
+  .attr("height", svgHeight + margin.top + margin.bottom)
+  .style("background", "#f4f4f4")
+  .append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // y scale
 const yScale = d3
@@ -20,7 +24,7 @@ const xScale = d3
   .domain(d3.range(0, myData.length))
   .range([0, svgWidth])
   .paddingInner(0.5)
-  .paddingOuter(0.5);
+  .paddingOuter(0);
 
 // tooltip
 const tooltip = d3
@@ -63,3 +67,22 @@ svg
   .attr("height", d => yScale(d))
   .attr("y", d => svgHeight - yScale(d))
   .ease(d3.easeElastic);
+
+// Adding axis: https://github.com/d3/d3-axis/blob/master/README.md#axisTop
+// add x-axis
+const xAxis = d3.axisBottom(xScale);
+svg
+  .append("g")
+  .attr("transform", `translate(0, ${svgHeight})`)
+  .call(xAxis);
+
+// add y-axis
+yAxisScale = d3
+  .scaleLinear()
+  .domain([0, d3.max(myData)])
+  .range([svgHeight, 0]);
+const yAxis = d3.axisLeft(yScale);
+svg
+  .append("g")
+  .attr("transform", `translate(${margin.left + margin.right}, 0)`)
+  .call(yAxis);
