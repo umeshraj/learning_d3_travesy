@@ -46,4 +46,6 @@ svg
   .attr("y", d => svgHeight - yScale(d))
   .on("mouseover", d => {
     tooltip.html(d);
+    tooltip.style("left", d3.event.pageX + "px");
+    tooltip.style("top", d3.event.pageY + "px");
   });
